@@ -1,0 +1,23 @@
+<div class="section">
+	<div class="row">
+		<div class="col s12 m6 offset-m3">
+			<div class="card">
+				<div class="card-content">
+					<span class="card-title">Title</span>
+
+					<% attributes.reject(&:password_digest?).each do |attribute| -%>
+					<p>
+					  <strong><%= attribute.human_name %>:</strong>
+					  <%%= @<%= singular_table_name %>.<%= attribute.name %> %>
+					</p>
+
+					<% end -%>
+				</div>
+				<div class="card-action">
+					<%%= link_to 'Edit', edit_<%= singular_table_name %>_path(@<%= singular_table_name %>) %>
+					<%%= link_to 'Back', <%= index_helper %>_path %>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

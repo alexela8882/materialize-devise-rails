@@ -1,0 +1,56 @@
+<div class="section">
+  <div class="card-panel">
+    <h4 class="header2">Email Plans</h4>
+    <%= form_tag(email_plans_path, method: :get) do %>
+      <%= text_field_tag :term, params[:term] %>
+      <%= submit_tag 'Search',name: nil , class: 'waves-effect waves-light btn' %>
+    <% end %>
+
+    <table class="bordered responsive-table">
+      <thead>
+        <tr>
+          <th><%= sort_link "name" %></th>
+          <th><%= sort_link "expiration" %></th>
+          <th colspan="3"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% if @email_plans.count != 0 %>
+          <% @email_plans.each do |email_plan| %>
+            <tr>
+              <td><%= email_plan.name %></td>
+              <td><%= email_plan.expiration %></td>
+              <td>
+                <%= link_to email_plan,
+                    class: 'btn-floating btn-small waves-effect waves-light teal' do %>
+                  <i class="material-icons">search</i>
+                <% end %>
+                <%= link_to edit_email_plan_path(email_plan),
+                    class: 'btn-floating btn-small waves-effect waves-light blue' do %>
+                  <i class="material-icons">mode_edit</i>
+                <% end %>
+                <%= link_to email_plan, method: :delete, data: { confirm: 'Are you sure?' },
+                    class: 'btn-floating btn-small waves-effect waves-light red', id: 'btn-submit' do %>
+                  <i class="material-icons">delete</i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr><td>No records found</td></tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <!-- paginate -->
+    <%= page_entries_info @email_plans %>
+    <%= paginate @email_plans %>
+
+
+    <br>
+
+    <%= link_to 'New Email Plan', new_email_plan_path, class: 'waves-effect waves-light btn' %>
+
+  </div>
+</div>

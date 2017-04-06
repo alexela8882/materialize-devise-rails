@@ -1,0 +1,65 @@
+<div class="navbar-fixed">
+	<nav class="nav-extended">
+		<div class="container">
+			<div class="nav-wrapper">
+        <%= link_to("MIS APP", root_path , class: 'brand-logo') %>
+        <a href="#" data-activates="sidenav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+		    <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <% if user_signed_in? %>
+            <!-- Email Plans -->
+            <li>
+              <a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="emailp-mobile-dropdown">
+                Email Plans
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+            <ul id="emailp-mobile-dropdown" class="dropdown-content">
+              <li>
+                <%= link_to("Plans", email_plans_path) %>
+              </li>
+              <li>
+                <%= link_to 'Add New', new_email_plan_path %>
+              </li>
+            </ul>
+
+            <!-- User Account -->
+            <li>
+              <a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="account-mobile-dropdown">
+                <%= current_user.email %>
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+            <ul id="account-mobile-dropdown" class="dropdown-content">
+              <li><a href="#">My Profile</a></li>
+              <li>
+                <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+              </li>
+            </ul>
+          <% else %>
+            <li><a href="#"><%= link_to 'Login', new_user_session_path %></a></li>
+          <% end %>
+		    </ul>
+
+        <!-- Side Nav -->
+        <ul id="sidenav-mobile" class="side-nav">
+          <% if user_signed_in? %>
+            <li>
+              <a class="dropdown-button" data-beloworigin="true" href="#!" data-activates="account-mobile-dropdown">
+                <%= current_user.email %>
+                <i class="material-icons right">arrow_drop_down</i>
+              </a>
+            </li>
+            <ul id="account-mobile-dropdown" class="dropdown-content">
+              <li><a href="#">My Profile</a></li>
+              <li>
+                <%= link_to 'Logout', destroy_user_session_path, :method => :delete %>
+              </li>
+            </ul>
+          <% else %>
+            <li><a href="#"><%= link_to 'Login', new_user_session_path %></a></li>
+          <% end %>
+        </ul>
+		  </div>
+		</div>
+	</nav>
+</div>

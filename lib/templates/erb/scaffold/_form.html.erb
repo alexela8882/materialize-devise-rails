@@ -1,0 +1,36 @@
+<%%= form_for(<%= singular_table_name %>) do |f| %>
+
+<% attributes.each do |attribute| -%>
+  <div class="field">
+<% if attribute.password_digest? -%>
+    <%%= f.label :password %>
+    <%%= f.password_field :password %>
+  </div>
+
+  <div class="field">
+    <%%= f.label :password_confirmation %>
+    <%%= f.password_field :password_confirmation %>
+  </div>
+<% elsif attribute.reference? %>
+    <%%= f.label :<%= attribute.column_name %> %>
+    <%%= f.collection_select :<%= attribute.column_name %>, <%= attribute.name.camelize %>.all, :id, :name, { prompt: "Choose a position" }, class: 'browser-default' %>
+  </div>
+<% else -%>
+    <%%= f.label :<%= attribute.column_name %> %>
+    <%%= f.<%= attribute.field_type %> :<%= attribute.column_name %> %>
+  </div>
+<% end -%>
+
+<% end -%>
+  <div class="actions">
+    <%%= f.submit (f.object.new_record? ? 'Create' : 'Update'), class: 'waves-effect waves-light btn' %>
+  </div>
+<%% end %>
+
+<%% if <%= singular_table_name %>.errors.any? %>
+  <%% <%= singular_table_name %>.errors.full_messages.each do |message| %>
+    <%%= javascript_tag do %>
+      Materialize.toast("<%%= message %>", 5000);
+    <%% end %>
+  <%% end %>
+<%% end %>

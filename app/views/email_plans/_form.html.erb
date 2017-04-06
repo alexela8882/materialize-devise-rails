@@ -1,0 +1,24 @@
+<%= form_for(email_plan) do |f| %>
+
+  <div class="field">
+    <%= f.label :name %>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :expiration %>
+    <%= f.date_field :expiration, class: 'datepicker' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit (f.object.new_record? ? 'Create' : 'Update'), class: 'waves-effect waves-light btn' %>
+  </div>
+<% end %>
+
+<% if email_plan.errors.any? %>
+  <% email_plan.errors.full_messages.each do |message| %>
+    <%= javascript_tag do %>
+      Materialize.toast("<%= message %>", 5000);
+    <% end %>
+  <% end %>
+<% end %>

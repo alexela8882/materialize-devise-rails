@@ -1,0 +1,93 @@
+<script type="text/javascript">
+
+  // Materialize Dropdown Button
+  $('.dropdown-button').dropdown({
+      inDuration: 300,
+      outDuration: 225,
+      constrain_width: false, // Does not change width of dropdown to that of the activator
+      hover: false, // Activate on hover
+      gutter: 0, // Spacing from edge
+      belowOrigin: false, // Displays dropdown below the button
+      alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    }
+  );
+
+  // Materialize Side Nav Collapse
+  $( document ).ready(function(){
+    $('.button-collapse').sideNav();
+  })
+
+  // Materialize Form Field
+  $(function() {
+    Materialize.updateTextFields();
+  });
+
+  // Materialize Select Field
+  $(document).ready(function() {
+    $('select').material_select();
+  });
+
+  // Materialize Date Picker
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 15 // Creates a dropdown of 15 years to control year
+  });
+
+  // Materialize Collapsible
+  $(document).ready(function(){
+    $('.collapsible').collapsible();
+  });
+
+  //Override the default confirm dialog by rails for sweetalert
+  // $.rails.allowAction = function(link){
+  //   if (link.data("confirm") == undefined){
+  //     return true;
+  //   }
+  //   $.rails.showConfirmationDialog(link);
+  //   return false;
+  // }
+
+  // //User click confirm button
+  // $.rails.confirmed = function(e, link){
+  //   e.preventDefault();
+  //   link.data("confirm", null);
+  //   Turbolinks.visit(link.attr('href'))
+  // }
+
+  // //Display the confirmation dialog
+  // $.rails.showConfirmationDialog = function(link){
+  //   var message = link.data("confirm");
+  //   swal({
+  //     title: 'Are you sure?',
+  //     text: "You won't be able to revert this!",
+  //     type: 'warning',
+  //     showCancelButton: true,
+  //     confirmButtonColor: '#3085d6',
+  //     cancelButtonColor: '#d33',
+  //     confirmButtonText: 'Yes, delete it!'
+  //   })
+  // };
+  Materialize.toast("<%= notice %>", 5000);
+</script>
+
+<% flash.each do |type, message| %>
+  <% if type == "success" %>
+    <script>
+      $(function() {
+        Materialize.toast("<%= message %>", 5000);
+      });
+    </script>
+  <% elsif type == "error" %>
+    <script>
+      $(function() {
+        Materialize.toast("<%= message %>", 5000);
+      });
+    </script>
+  <% else %>
+    <script>
+      $(function() {
+        Materialize.toast("<%= message %>", 5000);
+      });
+    </script>
+  <% end %>
+<% end %>
